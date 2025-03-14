@@ -6,7 +6,7 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "types": ["vite/client"],
+    "types": ["vite/client", "unplugin-icons/types/react"],
     "baseUrl": ".",
     "rootDirs": [".", "./.react-router/types"]
   },
@@ -16,6 +16,9 @@
     "app/**/.server/**/*",
     "app/**/.client/**/*",
     "workers/**/*",
-    "worker-configuration.d.ts"
+    "worker-configuration.d.ts",
+    "eslint.config.ts",
+    "react-router.config.ts",
+    "vite.config.ts"
   ]
 }

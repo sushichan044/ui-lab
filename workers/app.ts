@@ -18,7 +18,6 @@ const requestHandler = createRequestHandler(
   // @ts-expect-error - virtual module provided by React Router at build time
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   async () => import("virtual:react-router/server-build"),
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
   import.meta.env.MODE,
 );
 
