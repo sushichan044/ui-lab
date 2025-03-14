@@ -6,11 +6,12 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(({ isSsrBuild }) => ({
   build: {
-    rollupOptions: isSsrBuild
-      ? {
-          input: "./workers/app.ts",
-        }
-      : undefined,
+    rollupOptions:
+      isSsrBuild === true
+        ? {
+            input: "./workers/app.ts",
+          }
+        : undefined,
   },
   plugins: [
     cloudflareDevProxy({
