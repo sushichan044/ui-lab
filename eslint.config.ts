@@ -1,6 +1,7 @@
 import react from "@virtual-live-lab/eslint-config/presets/react";
 import ts from "@virtual-live-lab/eslint-config/presets/ts";
 import { composer } from "eslint-flat-config-utils";
+import * as reactCompiler from "eslint-plugin-react-compiler";
 import tseslint from "typescript-eslint";
 
 export default composer(
@@ -13,6 +14,14 @@ export default composer(
       extends: [...ts, ...react],
       name: "@repo/eslint-config",
     }),
+    {
+      plugins: {
+        "react-compiler": reactCompiler,
+      },
+      rules: {
+        "react-compiler/react-compiler": "error",
+      },
+    },
   ),
 ).override(28, {
   rules: {
