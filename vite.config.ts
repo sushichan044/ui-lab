@@ -23,7 +23,7 @@ export default defineConfig(({ isSsrBuild }) => ({
     }),
     tailwindcss(),
     reactRouter(),
-    Icons(),
+    Icons({ compiler: "jsx", jsx: "react" }),
     tsconfigPaths(),
   ],
 }));
