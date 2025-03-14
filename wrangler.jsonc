@@ -11,6 +11,7 @@
   "observability": {
     "enabled": true
   },
+  "tail_consumers": [{ "service": "ui-lab-tail" }],
   "vars": {
     "VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare"
   }
