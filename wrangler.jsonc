@@ -8,6 +8,9 @@
     "directory": "./build/client"
   },
   "workers_dev": true,
+  "observability": {
+    "enabled": true
+  },
   "vars": {
     "VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare"
   }
