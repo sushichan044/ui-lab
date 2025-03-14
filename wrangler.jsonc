@@ -7,7 +7,7 @@
   "assets": {
     "directory": "./build/client"
   },
-  "workers_dev": true,
+  "workers_dev": false,
   "observability": {
     "enabled": true
   },
