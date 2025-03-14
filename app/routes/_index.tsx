@@ -22,8 +22,8 @@ export default function Home() {
     <main className="mx-auto container p-4">
       <section>
         <h2 className="text-xl font-bold">Input</h2>
-        <Link to="/input/checkbox">
-          <p>Checkbox</p>
+        <Link className="link" to="/input/multi-checkbox">
+          <p>Multi checkbox</p>
         </Link>
       </section>
     </main>

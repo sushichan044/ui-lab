@@ -1,0 +1,83 @@
+import { Fragment, useEffect, useId, useRef } from "react";
+
+import { useMultiChoice } from "../hooks/useMultiChoice";
+
+const ID_ARRAY = ["a", "b", "c", "d", "e", "f"] as const;
+
+export default function Page() {
+  const { handleAllChange, handleSingleChange, selectedDataSet } =
+    useMultiChoice({ candidateValues: ID_ARRAY });
+
+  const allCheckboxRef = useRef<HTMLInputElement>(null);
+
+  const allChecked = selectedDataSet.size === ID_ARRAY.length;
+
+  useEffect(() => {
+    const allCheckbox = allCheckboxRef.current;
+
+    if (allCheckbox) {
+      allCheckbox.indeterminate = !allChecked && selectedDataSet.size > 0;
+    }
+
+    return () => {
+      if (allCheckbox) {
+        allCheckbox.indeterminate = false;
+      }
+    };
+  }, [allChecked, selectedDataSet.size]);
+
+  const checkboxId = useId();
+
+  return (
+    <main className="mx-auto container p-4">
+      <div className="space-y-4 md:space-y-8">
+        <h1 className="text-3xl">Input with multi checkbox</h1>
+        <section className="space-y-2 md:space-y-4">
+          <h2 className="text-xl font-bold">Selected values</h2>
+          {selectedDataSet.size === 0 ? (
+            <p>No selected values</p>
+          ) : (
+            <ul className="flex flex-row flex-nowrap">
+              {Array.from(selectedDataSet).map((id, i) => (
+                <Fragment key={id}>
+                  <li>{id}</li>
+                  {
+                    // Add a comma if the current item is not the last one
+                    i !== selectedDataSet.size - 1 && <span>,</span>
+                  }
+                </Fragment>
+              ))}
+            </ul>
+          )}
+        </section>
+        <section className="space-y-2 md:space-y-4">
+          <h2 className="text-xl font-bold">Form</h2>
+          <input
+            checked={allChecked}
+            className="checkbox"
+            id="all"
+            onChange={(e) => handleAllChange(e.target.checked)}
+            ref={allCheckboxRef}
+            type="checkbox"
+          />
+          <ul className="space-y-1 md:space-y-2">
+            {ID_ARRAY.map((id) => (
+              <li key={id}>
+                <input
+                  checked={selectedDataSet.has(id)}
+                  className="checkbox"
+                  id={`${checkboxId}-${id}`}
+                  onChange={(e) => handleSingleChange(id, e.target.checked)}
+                  type="checkbox"
+                />
+                <label className="px-2" htmlFor={`${checkboxId}-${id}`}>
+                  {id}
+                </label>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </main>
+  );
+}
