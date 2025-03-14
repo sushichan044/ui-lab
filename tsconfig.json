@@ -1,11 +1,12 @@
 {
   "extends": [
     "@virtual-live-lab/tsconfig/vite",
-    "@virtual-live-lab/tsconfig/react",
-    "@virtual-live-lab/tsconfig/cloudflare-workers"
+    "@virtual-live-lab/tsconfig/react"
   ],
   "compilerOptions": {
-    "types": ["vite/client", "@cloudflare/workers-types"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["vite/client"],
     "baseUrl": ".",
     "rootDirs": [".", "./.react-router/types"]
   },

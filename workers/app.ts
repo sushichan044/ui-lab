@@ -19,7 +19,7 @@ const requestHandler = createRequestHandler(
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   async () => import("virtual:react-router/server-build"),
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-  import.meta.env.MODE
+  import.meta.env.MODE,
 );
 
 export default {
