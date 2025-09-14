@@ -12,12 +12,13 @@
     "format": "prettier --write .",
     "typegen": "pnpm run /^typegen:.*/",
     "typegen:react-router": "react-router typegen",
-    "typegen:cloudflare": "wrangler types"
+    "typegen:cloudflare": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
     "@react-router/fs-routes": "7.9.1",
     "@react-router/serve": "7.9.1",
     "clsx": "2.1.1",
+    "hono": "4.9.7",
     "isbot": "5.1.30",
     "react": "19.2.0-canary-8a8e9a7e-20250912",
     "react-dom": "19.2.0-canary-8a8e9a7e-20250912",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "7.27.1",
     "@babel/preset-typescript": "7.27.1",
+    "@cloudflare/vite-plugin": "1.13.0",
     "@iconify/json": "2.2.383",
     "@react-router/dev": "7.9.1",
     "@svgr/core": "8.1.0",

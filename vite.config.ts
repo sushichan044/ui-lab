@@ -1,10 +1,9 @@
+import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
-import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
 import tailwindcss from "@tailwindcss/vite";
 import Icons from "unplugin-icons/vite";
 import { defineConfig } from "vite";
 import babel from "vite-plugin-babel";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 const ReactCompilerConfig = {
   target: "19",
@@ -20,12 +19,7 @@ export default defineConfig(({ isSsrBuild }) => ({
         : undefined,
   },
   plugins: [
-    cloudflareDevProxy({
-      // @ts-expect-error よくわかんない
-      getLoadContext({ context }) {
-        return { cloudflare: context.cloudflare };
-      },
-    }),
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
     reactRouter(),
     Icons({ compiler: "jsx", jsx: "react" }),
@@ -39,6 +33,5 @@ export default defineConfig(({ isSsrBuild }) => ({
       },
       filter: /\.[jt]sx?$/,
     }),
-    tsconfigPaths(),
   ],
 }));

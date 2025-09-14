@@ -1,8 +1,9 @@
 import type { EntryContext } from "react-router";
+import type { RouterContextProvider } from "react-router";
 
 import { isbot } from "isbot";
 import { renderToReadableStream } from "react-dom/server";
-import { ServerRouter } from "react-router";
+import { createContext, ServerRouter } from "react-router";
 
 export default async function handleRequest(
   request: Request,
@@ -42,3 +43,13 @@ export default async function handleRequest(
     status: responseStatusCode,
   });
 }
+
+// `createContext()` should be executed in React Router's runtime.
+// So, placing it here instead of workers/app.ts
+export const cloudflareRRCtx = createContext<CloudflareBindings>();
+export const setCloudflareRRCtx = (
+  ctx: RouterContextProvider,
+  env: CloudflareBindings,
+) => {
+  ctx.set(cloudflareRRCtx, env);
+};
