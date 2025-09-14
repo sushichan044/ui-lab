@@ -16,6 +16,7 @@
     "app/**/.server/**/*",
     "app/**/.client/**/*",
     "workers/**/*",
+    "env.d.ts",
     "worker-configuration.d.ts",
     "eslint.config.ts",
     "react-router.config.ts",
