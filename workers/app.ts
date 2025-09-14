@@ -15,7 +15,8 @@ declare module "react-router" {
 }
 
 const requestHandler = createRequestHandler(
-  // @ts-expect-error - virtual module provided by React Router at build time
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore - virtual module provided by React Router at build time
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   async () => import("virtual:react-router/server-build"),
   import.meta.env.MODE,
