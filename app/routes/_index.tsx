@@ -1,8 +1,7 @@
 import { Link } from "react-router";
 
 import type { Route } from "./+types/_index";
-
-import { cloudflareRRCtx } from "../entry.server";
+import { cloudflareContext } from "../context";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -16,7 +15,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export function loader({ context }: Route.LoaderArgs) {
-  const cf = context.get(cloudflareRRCtx);
+  const cf = cloudflareContext.get(context);
 
   return {
     cloudflareValue: cf.VALUE_FROM_CLOUDFLARE,
