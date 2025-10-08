@@ -11,8 +11,20 @@
   "observability": {
     "enabled": true
   },
-  "tail_consumers": [{ "service": "ui-lab-tail" }],
+  "tail_consumers": [
+    {
+      "service": "ui-lab-tail"
+    }
+  ],
   "vars": {
     "VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "UI_LAB_DB",
+      "database_name": "ui-lab-db",
+      "database_id": "17e4ce7d-bd9b-4a92-b7bd-fcb94327f3c1",
+      "migrations_dir": "drizzle/migrations"
+    }
+  ]
 }
