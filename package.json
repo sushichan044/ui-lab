@@ -7,7 +7,7 @@
     "deploy": "pnpm run build && wrangler deploy",
     "dev": "react-router dev",
     "start": "wrangler dev",
-    "typecheck": "pnpm run typegen && tsc -b",
+    "typecheck": "pnpm run typegen && tsc -b --noEmit",
     "lint": "eslint",
     "format": "prettier --write .",
     "typegen": "pnpm run /^typegen:.*/",
