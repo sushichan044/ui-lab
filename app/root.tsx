@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import {
   isRouteErrorResponse,
   Links,
@@ -69,6 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </Link>
         </header>
         {children}
+        <Toaster position="bottom-right" />
         <ScrollRestoration />
         <Scripts />
       </body>

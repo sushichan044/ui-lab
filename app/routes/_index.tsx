@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 
 import type { Route } from "./+types/_index";
+
 import { cloudflareContext } from "../context";
 
 export function meta({}: Route.MetaArgs) {
@@ -30,6 +31,12 @@ export default function Home() {
           <h2 className="text-xl font-bold">Input</h2>
           <Link className="link" to="/input/multi-checkbox">
             <p>Multi checkbox</p>
+          </Link>
+        </section>
+        <section>
+          <h2 className="text-xl font-bold">Async Task</h2>
+          <Link className="link" to="/interaction/async-task">
+            <p>Async Task</p>
           </Link>
         </section>
       </div>
