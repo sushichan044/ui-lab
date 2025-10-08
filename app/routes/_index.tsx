@@ -33,12 +33,6 @@ export default function Home() {
             <p>Multi checkbox</p>
           </Link>
         </section>
-        <section>
-          <h2 className="text-xl font-bold">Form</h2>
-          <Link className="link" to="/form/activity">
-            <p>Activity Form (WIP)</p>
-          </Link>
-        </section>
       </div>
     </main>
   );

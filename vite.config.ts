@@ -3,11 +3,7 @@ import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import Icons from "unplugin-icons/vite";
 import { defineConfig } from "vite";
-import babel from "vite-plugin-babel";
-
-const ReactCompilerConfig = {
-  target: "19",
-};
+import devtoolsJson from "vite-plugin-devtools-json";
 
 export default defineConfig(({ isSsrBuild }) => ({
   build: {
@@ -23,15 +19,6 @@ export default defineConfig(({ isSsrBuild }) => ({
     tailwindcss(),
     reactRouter(),
     Icons({ compiler: "jsx", jsx: "react" }),
-    babel({
-      babelConfig: {
-        plugins: [
-          "@babel/plugin-syntax-jsx",
-          ["babel-plugin-react-compiler", ReactCompilerConfig],
-        ],
-        presets: ["@babel/preset-typescript"],
-      },
-      filter: /\.[jt]sx?$/,
-    }),
+    devtoolsJson(),
   ],
 }));

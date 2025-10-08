@@ -1,2 +1,2 @@
-/// <reference types="react/canary" />
-/// <reference types="react-dom/canary" />
+/// <reference types="react/experimental" />
+/// <reference types="react-dom/experimental" />
