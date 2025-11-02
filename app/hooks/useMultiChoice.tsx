@@ -1,58 +1,73 @@
-import { useCallback, useReducer, useState } from "react";
+import { useCallback, useMemo, useReducer, useState } from "react";
 
-type Input<T extends readonly string[]> = {
+type Input<T extends DataSet> = {
   candidateValues: T;
-  onUpdate?: (selectedDataSet: Set<string>, allDataSet: Set<string>) => void;
+  onUpdate?: (selectedDataSet: SelectedDataSet<T>) => void;
 };
 
-type Action =
+type Action<T extends DataSet> =
   | {
-      id: string;
+      id: T[number];
       type: "add";
     }
   | {
-      id: string;
+      id: T[number];
       type: "remove";
     }
   | {
       type: "add-all" | "remove-all";
     };
 
-type UseMultiChoice<T extends readonly string[]> = {
+type DataSet = readonly string[];
+type SelectedDataSet<T extends DataSet> = Readonly<Array<T[number]>>;
+
+type UseMultiChoice<T extends DataSet> = {
   handleAllChange: (checked: boolean) => void;
   handleSingleChange: (selectedId: string, checked: boolean) => void;
-  selectedDataSet: Set<T[number]>;
+  selectedDataSet: SelectedDataSet<T>;
+
+  areAllSelected: boolean;
 };
 
-export const useMultiChoice = <T extends readonly string[]>({
+export const useMultiChoice = <T extends DataSet>({
   candidateValues,
   onUpdate,
 }: Input<T>): UseMultiChoice<T> => {
-  const [allDataSet] = useState(() => new Set(candidateValues));
-  const [selectedDataSet, dispatch] = useReducer<Set<string>, [Action]>(
-    (state, action) => {
-      const newState = (() => {
-        switch (action.type) {
-          case "add": {
-            return new Set(state).add(action.id);
-          }
-          case "add-all": {
-            return allDataSet;
-          }
-          case "remove": {
-            const newState = new Set(state);
-            newState.delete(action.id);
-            return newState;
-          }
-          case "remove-all": {
-            return new Set<string>();
-          }
+  const [candidates] = useState<T>(() => candidateValues);
+
+  const [selectedDataSet, dispatch] = useReducer<
+    SelectedDataSet<T>,
+    [Action<T>]
+  >((state, action) => {
+    const newState = (() => {
+      switch (action.type) {
+        case "add": {
+          return [...state, action.id];
         }
-      })();
-      onUpdate?.(newState, allDataSet);
-      return newState;
-    },
-    new Set<string>(),
+        case "add-all": {
+          return [...candidates];
+        }
+        case "remove": {
+          const newState = [...state];
+          newState.splice(newState.indexOf(action.id), 1);
+          return newState;
+        }
+        case "remove-all": {
+          return [];
+        }
+        default: {
+          throw new Error("Unhandled action type", action satisfies never);
+        }
+      }
+    })();
+
+    onUpdate?.(newState);
+    return newState;
+  }, []);
+
+  const isAllChecked = useMemo(
+    () => selectedDataSet.length === candidates.length,
+    [candidates.length, selectedDataSet.length],
   );
 
   const handleAllChange = useCallback((checked: boolean) => {
@@ -67,6 +82,7 @@ export const useMultiChoice = <T extends readonly string[]>({
   );
 
   return {
+    areAllSelected: isAllChecked,
     handleAllChange,
     handleSingleChange,
     selectedDataSet,

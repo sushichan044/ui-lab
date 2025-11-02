@@ -18,18 +18,20 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Page() {
-  const { handleAllChange, handleSingleChange, selectedDataSet } =
-    useMultiChoice({ candidateValues: ID_ARRAY });
+  const {
+    areAllSelected,
+    handleAllChange,
+    handleSingleChange,
+    selectedDataSet,
+  } = useMultiChoice({ candidateValues: ID_ARRAY });
 
   const allCheckboxRef = useRef<HTMLInputElement>(null);
-
-  const allChecked = selectedDataSet.size === ID_ARRAY.length;
 
   useEffect(() => {
     const allCheckbox = allCheckboxRef.current;
 
     if (allCheckbox) {
-      allCheckbox.indeterminate = !allChecked && selectedDataSet.size > 0;
+      allCheckbox.indeterminate = !areAllSelected && selectedDataSet.length > 0;
     }
 
     return () => {
@@ -37,7 +39,7 @@ export default function Page() {
         allCheckbox.indeterminate = false;
       }
     };
-  }, [allChecked, selectedDataSet.size]);
+  }, [areAllSelected, selectedDataSet.length]);
 
   const checkboxId = useId();
 
@@ -47,7 +49,7 @@ export default function Page() {
         <h1 className="text-3xl">Input with multi checkbox</h1>
         <section className="space-y-2 md:space-y-4">
           <h2 className="text-xl font-bold">Selected values</h2>
-          {selectedDataSet.size === 0 ? (
+          {selectedDataSet.length === 0 ? (
             <p>No selected values</p>
           ) : (
             <ul className="flex flex-row flex-nowrap">
@@ -56,7 +58,7 @@ export default function Page() {
                   <li>{id}</li>
                   {
                     // Add a comma if the current item is not the last one
-                    i !== selectedDataSet.size - 1 && <span>,</span>
+                    i !== selectedDataSet.length - 1 && <span>,</span>
                   }
                 </Fragment>
               ))}
@@ -66,7 +68,7 @@ export default function Page() {
         <section className="space-y-2 md:space-y-4">
           <h2 className="text-xl font-bold">Form</h2>
           <input
-            checked={allChecked}
+            checked={areAllSelected}
             className="checkbox"
             id="all"
             onChange={(e) => handleAllChange(e.target.checked)}
@@ -77,7 +79,7 @@ export default function Page() {
             {ID_ARRAY.map((id) => (
               <li key={id}>
                 <input
-                  checked={selectedDataSet.has(id)}
+                  checked={selectedDataSet.includes(id)}
                   className="checkbox"
                   id={`${checkboxId}-${id}`}
                   onChange={(e) => handleSingleChange(id, e.target.checked)}
