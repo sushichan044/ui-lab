@@ -39,6 +39,12 @@ export default function Home() {
             <p>Async Task</p>
           </Link>
         </section>
+        <section>
+          <h2 className="text-xl font-bold">Overlay</h2>
+          <Link className="link" to="/niconico">
+            <p>Niconico Comment Overlay</p>
+          </Link>
+        </section>
       </div>
     </main>
   );
