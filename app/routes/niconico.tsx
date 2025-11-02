@@ -73,12 +73,15 @@ export default function Niconico() {
     };
   }, []);
 
-  const handleRemoveComment = useCallback((commentId: string) => {
-    clearCommentTimeout(commentId);
-    setActiveComments((prev) =>
-      prev.filter((comment) => comment.id !== commentId),
-    );
-  }, [clearCommentTimeout]);
+  const handleRemoveComment = useCallback(
+    (commentId: string) => {
+      clearCommentTimeout(commentId);
+      setActiveComments((prev) =>
+        prev.filter((comment) => comment.id !== commentId),
+      );
+    },
+    [clearCommentTimeout],
+  );
 
   const addComment = useCallback(() => {
     setActiveComments((prev) => {
@@ -127,20 +130,19 @@ export default function Niconico() {
   }, [isPlaying, addComment, clearSchedulerTimeout]);
 
   useEffect(() => {
+    const timeouts = commentTimeoutsRef.current;
+
     return () => {
       clearSchedulerTimeout();
-      commentTimeoutsRef.current.forEach((timeoutId) => {
+      timeouts.forEach((timeoutId) => {
         clearTimeout(timeoutId);
       });
-      commentTimeoutsRef.current.clear();
+      timeouts.clear();
     };
   }, [clearSchedulerTimeout]);
 
   return (
-    <div
-      className="fixed inset-0 overflow-hidden pointer-events-none"
-      style={{ background: "transparent" }}
-    >
+    <div className="fixed inset-0 overflow-hidden pointer-events-none bg-transparent">
       <style>{`
         @keyframes scroll-comment {
           from {
