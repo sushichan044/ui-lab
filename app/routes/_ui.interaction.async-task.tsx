@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import toast from "react-hot-toast";
 
-import type { Route } from "./+types/interaction.async-task";
+import type { Route } from "./+types/_ui.interaction.async-task";
 
 import { useAsyncTask } from "../hooks/useAsyncTask";
 

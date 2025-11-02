@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useId, useRef } from "react";
 
-import type { Route } from "./+types/input.multi-checkbox";
+import type { Route } from "./+types/_ui.input.multi-checkbox";
 
 import { useMultiChoice } from "../hooks/useMultiChoice";
 

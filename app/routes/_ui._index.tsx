@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-import type { Route } from "./+types/_index";
+import type { Route } from "./+types/_ui._index";
 
 import { cloudflareContext } from "../context";
 

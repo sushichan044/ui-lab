@@ -1,8 +1,8 @@
-import type { MetaFunction } from "react-router";
-
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export const meta: MetaFunction = () => {
+import type { Route } from "./+types/niconico";
+
+export const meta: Route.MetaFunction = () => {
   return [
     { title: "Niconico Comment Overlay" },
     {
@@ -33,7 +33,7 @@ const COMMENT_DURATION_MS = 10000; // 10 seconds to match CSS animation
 const MIN_INTERVAL_MS = 2000;
 const MAX_INTERVAL_MS = 4000;
 
-export default function Niconico() {
+export default function Niconico({}: Route.ComponentProps) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeComments, setActiveComments] = useState<Comment[]>([]);
   const nextIdRef = useRef(0);

@@ -1,7 +1,7 @@
 import { useCallback, useReducer, useState } from "react";
 
-type Input = {
-  candidateValues: readonly string[];
+type Input<T extends readonly string[]> = {
+  candidateValues: T;
   onUpdate?: (selectedDataSet: Set<string>, allDataSet: Set<string>) => void;
 };
 
@@ -18,16 +18,16 @@ type Action =
       type: "add-all" | "remove-all";
     };
 
-type UseMultiChoice = {
+type UseMultiChoice<T extends readonly string[]> = {
   handleAllChange: (checked: boolean) => void;
   handleSingleChange: (selectedId: string, checked: boolean) => void;
-  selectedDataSet: Set<string>;
+  selectedDataSet: Set<T[number]>;
 };
 
-export const useMultiChoice = ({
+export const useMultiChoice = <T extends readonly string[]>({
   candidateValues,
   onUpdate,
-}: Input): UseMultiChoice => {
+}: Input<T>): UseMultiChoice<T> => {
   const [allDataSet] = useState(() => new Set(candidateValues));
   const [selectedDataSet, dispatch] = useReducer<Set<string>, [Action]>(
     (state, action) => {
