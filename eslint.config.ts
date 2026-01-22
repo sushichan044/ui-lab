@@ -29,7 +29,14 @@ export default composer(
       "error",
       {
         allowConstantExport: true,
-        allowExportNames: ["meta", "links", "headers", "loader", "action"],
+        allowExportNames: [
+          "meta",
+          "links",
+          "headers",
+          "loader",
+          "action",
+          "clientLoader",
+        ],
       },
     ],
   },

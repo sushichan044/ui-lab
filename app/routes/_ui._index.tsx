@@ -45,6 +45,12 @@ export default function Home() {
             <p>Niconico Comment Overlay</p>
           </Link>
         </section>
+        <section>
+          <h2 className="text-xl font-bold">Client Loader</h2>
+          <Link className="link" to="/client-loader">
+            <p>Client Loader Example</p>
+          </Link>
+        </section>
       </div>
     </main>
   );
