@@ -5,7 +5,11 @@ import { createRequestHandler, RouterContextProvider } from "react-router";
 // @ts-ignore virtual module provided by React Router at build time
 import * as build from "virtual:react-router/server-build";
 
-import { apiClientContext, cloudflareContext, executionContextContext } from "../app/context";
+import {
+  apiClientContext,
+  cloudflareContext,
+  executionContextContext,
+} from "../app/context.server";
 import { apiRoutes, APIRoutes } from "./api";
 
 type HonoConfig = {

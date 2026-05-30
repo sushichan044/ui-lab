@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-import { cloudflareContext } from "../context";
+import { cloudflareContext } from "../context.server";
 import type { Route } from "./+types/_ui._index";
 
 export function meta() {
