@@ -1,9 +1,8 @@
 import { Outlet } from "react-router";
 import { Link } from "react-router";
+import { cn } from "tailwind-variants";
 import Fa6BrandsGithub from "~icons/fa6-brands/github";
 import Fa6BrandsXTwitter from "~icons/fa6-brands/x-twitter";
-
-import { cn } from "../lib/cn";
 
 export default function LayoutRoute() {
   return (

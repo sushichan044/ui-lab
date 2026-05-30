@@ -5,7 +5,6 @@ allowBuilds:
 
 catalogs:
   dev:
-    "@react-router/node": ^7.16.0
     "@rolldown/plugin-babel": 0.2.3
     "@types/node": 25.9.1
     "@typescript/native-preview": 7.0.0-dev.20260527.2

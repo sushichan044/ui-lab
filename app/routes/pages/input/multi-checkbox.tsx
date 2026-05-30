@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useId, useRef } from "react";
 
-import { useMultiChoice } from "../hooks/useMultiChoice";
+import { useMultiChoice } from "../../../hooks/useMultiChoice";
 
 const ID_ARRAY = ["a", "b", "c", "d", "e", "f"] as const;
 

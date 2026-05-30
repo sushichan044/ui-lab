@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { Suspense, use } from "react";
 
-import type { Route } from "./+types/_ui.client-loader";
+import type { Route } from "./+types/client-loader";
 
 export function clientLoader() {
   const banana = new Promise<string>((resolve) => {

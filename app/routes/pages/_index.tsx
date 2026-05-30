@@ -1,8 +1,7 @@
 import { Link } from "react-router";
 
-import { cloudflareContext } from "../context.server";
-import type { Route } from "./+types/_ui._index";
-
+import { cloudflareContext } from "../../context.server";
+import type { Route } from "./+types/_index";
 export function meta() {
   return [
     { title: "sushichan044's UI Lab" },

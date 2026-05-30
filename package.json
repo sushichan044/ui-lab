@@ -8,9 +8,6 @@
   },
   "dependencies": {
     "@libsql/client": "0.17.3",
-    "@react-router/fs-routes": "7.16.0",
-    "@react-router/node": "catalog:dev",
-    "@react-router/serve": "7.16.0",
     "clsx": "2.1.1",
     "drizzle-orm": "0.45.2",
     "hono": "4.12.23",
@@ -26,7 +23,6 @@
     "@cloudflare/vite-plugin": "1.39.0",
     "@iconify/json": "2.2.480",
     "@react-router/dev": "7.16.0",
-    "@react-router/node": "catalog:dev",
     "@rolldown/plugin-babel": "catalog:dev",
     "@svgr/core": "8.1.0",
     "@svgr/plugin-jsx": "8.1.0",
