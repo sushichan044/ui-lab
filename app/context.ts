@@ -1,6 +1,6 @@
+import type { ExecutionContext } from "hono";
 import type { hc } from "hono/client";
 import type { RouterContextProvider } from "react-router";
-
 import { createContext } from "react-router";
 
 import type { APIRoutes } from "../workers/api";
@@ -12,16 +12,12 @@ function createContextWithAccessor<T>() {
 
   return {
     get: (provider: Readonly<RouterContextProvider>) => provider.get(ctx),
-    set: (provider: RouterContextProvider, value: T) =>
-      provider.set(ctx, value),
+    set: (provider: RouterContextProvider, value: T) => provider.set(ctx, value),
   };
 }
 
-export const cloudflareContext =
-  createContextWithAccessor<CloudflareBindings>();
+export const cloudflareContext = createContextWithAccessor<CloudflareBindings>();
 
-export const apiClientContext =
-  createContextWithAccessor<ReturnType<typeof hc<APIRoutes>>>();
+export const apiClientContext = createContextWithAccessor<ReturnType<typeof hc<APIRoutes>>>();
 
-export const executionContextContext =
-  createContextWithAccessor<ExecutionContext>();
+export const executionContextContext = createContextWithAccessor<ExecutionContext>();

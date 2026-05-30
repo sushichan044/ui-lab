@@ -1,10 +1,9 @@
 import { Link } from "react-router";
 
+import { cloudflareContext } from "../context";
 import type { Route } from "./+types/_ui._index";
 
-import { cloudflareContext } from "../context";
-
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "sushichan044's UI Lab" },
     {

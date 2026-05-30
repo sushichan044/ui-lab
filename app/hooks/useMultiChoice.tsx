@@ -35,35 +35,35 @@ export const useMultiChoice = <T extends DataSet>({
 }: Input<T>): UseMultiChoice<T> => {
   const [candidates] = useState<T>(() => candidateValues);
 
-  const [selectedDataSet, dispatch] = useReducer<
-    SelectedDataSet<T>,
-    [Action<T>]
-  >((state, action) => {
-    const newState = (() => {
-      switch (action.type) {
-        case "add": {
-          return [...state, action.id];
+  const [selectedDataSet, dispatch] = useReducer<SelectedDataSet<T>, [Action<T>]>(
+    (state, action) => {
+      const newState = (() => {
+        switch (action.type) {
+          case "add": {
+            return [...state, action.id];
+          }
+          case "add-all": {
+            return [...candidates];
+          }
+          case "remove": {
+            const newState = [...state];
+            newState.splice(newState.indexOf(action.id), 1);
+            return newState;
+          }
+          case "remove-all": {
+            return [];
+          }
+          default: {
+            throw new Error("Unhandled action type", action satisfies never);
+          }
         }
-        case "add-all": {
-          return [...candidates];
-        }
-        case "remove": {
-          const newState = [...state];
-          newState.splice(newState.indexOf(action.id), 1);
-          return newState;
-        }
-        case "remove-all": {
-          return [];
-        }
-        default: {
-          throw new Error("Unhandled action type", action satisfies never);
-        }
-      }
-    })();
+      })();
 
-    onUpdate?.(newState);
-    return newState;
-  }, []);
+      onUpdate?.(newState);
+      return newState;
+    },
+    [],
+  );
 
   const isAllChecked = useMemo(
     () => selectedDataSet.length === candidates.length,
@@ -74,12 +74,9 @@ export const useMultiChoice = <T extends DataSet>({
     dispatch({ type: checked ? "add-all" : "remove-all" });
   }, []);
 
-  const handleSingleChange = useCallback(
-    (selectedId: string, checked: boolean) => {
-      dispatch({ id: selectedId, type: checked ? "add" : "remove" });
-    },
-    [],
-  );
+  const handleSingleChange = useCallback((selectedId: string, checked: boolean) => {
+    dispatch({ id: selectedId, type: checked ? "add" : "remove" });
+  }, []);
 
   return {
     areAllSelected: isAllChecked,

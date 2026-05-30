@@ -1,10 +1,9 @@
 import type { FC } from "react";
-
 import { Suspense, use } from "react";
 
 import type { Route } from "./+types/_ui.client-loader";
 
-export function clientLoader({}: Route.ClientLoaderArgs) {
+export function clientLoader() {
   const banana = new Promise<string>((resolve) => {
     setTimeout(() => {
       resolve("banana");

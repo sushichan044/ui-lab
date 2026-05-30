@@ -15,10 +15,7 @@ export default function LayoutRoute() {
           "container mx-auto p-4",
         )}
       >
-        <Link
-          className="hover:opacity-70 focus:opacity-70 transition duration-300"
-          to="/"
-        >
+        <Link className="hover:opacity-70 focus:opacity-70 transition duration-300" to="/">
           sushichan044&apos;s UI Lab
         </Link>
         <Link

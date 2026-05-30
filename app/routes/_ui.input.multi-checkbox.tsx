@@ -1,12 +1,10 @@
 import { Fragment, useEffect, useId, useRef } from "react";
 
-import type { Route } from "./+types/_ui.input.multi-checkbox";
-
 import { useMultiChoice } from "../hooks/useMultiChoice";
 
 const ID_ARRAY = ["a", "b", "c", "d", "e", "f"] as const;
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Multi Checkbox - sushichan044's UI Lab" },
     {
@@ -18,12 +16,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Page() {
-  const {
-    areAllSelected,
-    handleAllChange,
-    handleSingleChange,
-    selectedDataSet,
-  } = useMultiChoice({ candidateValues: ID_ARRAY });
+  const { areAllSelected, handleAllChange, handleSingleChange, selectedDataSet } = useMultiChoice({
+    candidateValues: ID_ARRAY,
+  });
 
   const allCheckboxRef = useRef<HTMLInputElement>(null);
 

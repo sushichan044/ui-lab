@@ -1,15 +1,11 @@
 import { Hono } from "hono";
+import { hc } from "hono/client";
 import { createRequestHandler, RouterContextProvider } from "react-router";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore virtual module provided by React Router at build time
 import * as build from "virtual:react-router/server-build";
 
-import {
-  apiClientContext,
-  cloudflareContext,
-  executionContextContext,
-} from "../app/context";
-import { hc } from "hono/client";
+import { apiClientContext, cloudflareContext, executionContextContext } from "../app/context";
 import { apiRoutes, APIRoutes } from "./api";
 
 type HonoConfig = {

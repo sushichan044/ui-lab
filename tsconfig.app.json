@@ -1,18 +1,15 @@
 {
-  "extends": [
-    "@virtual-live-lab/tsconfig/vite",
-    "@virtual-live-lab/tsconfig/react"
-  ],
+  "extends": ["@virtual-live-lab/tsconfig/vite", "@virtual-live-lab/tsconfig/react"],
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "types": [
-      "vite/client",
+      "node",
+      "vite-plus/client",
       "unplugin-icons/types/react",
       "./worker-configuration.d.ts"
     ],
-    "baseUrl": ".",
     "rootDirs": [".", "./.react-router/types"]
   },
   "include": [

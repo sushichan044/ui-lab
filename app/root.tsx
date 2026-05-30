@@ -56,9 +56,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? "404" : "Error";
     details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+      error.status === 404 ? "The requested page could not be found." : error.statusText || details;
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   } else if (import.meta.env.DEV && error && error instanceof Error) {

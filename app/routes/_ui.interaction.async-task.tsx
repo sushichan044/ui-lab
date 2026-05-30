@@ -1,23 +1,18 @@
 import { useRef } from "react";
 import toast from "react-hot-toast";
 
-import type { Route } from "./+types/_ui.interaction.async-task";
-
 import { useAsyncTask } from "../hooks/useAsyncTask";
 
-export default function Page({}: Route.ComponentProps) {
+export default function Page() {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const { isPending, run } = useAsyncTask({
     onError: (error) => {
       dialogRef.current?.close();
 
-      toast.error(
-        `Task failed: ${error instanceof Error ? error.message : String(error)}`,
-        {
-          id: "async-task",
-        },
-      );
+      toast.error(`Task failed: ${error instanceof Error ? error.message : String(error)}`, {
+        id: "async-task",
+      });
     },
     onStart: () => {
       dialogRef.current?.showModal();
@@ -43,12 +38,7 @@ export default function Page({}: Route.ComponentProps) {
       <div className="space-y-4 md:space-y-8">
         <h1 className="text-3xl">Async Task UI</h1>
         <section className="space-y-2 md:space-y-4">
-          <button
-            className="btn"
-            disabled={isPending}
-            onClick={run}
-            type="button"
-          >
+          <button className="btn" disabled={isPending} onClick={run} type="button">
             <span>Start 5 seconds task</span>
           </button>
 

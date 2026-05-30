@@ -33,16 +33,12 @@ const COMMENT_DURATION_MS = 10000; // 10 seconds to match CSS animation
 const MIN_INTERVAL_MS = 2000;
 const MAX_INTERVAL_MS = 4000;
 
-export default function Niconico({}: Route.ComponentProps) {
+export default function Niconico() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeComments, setActiveComments] = useState<Comment[]>([]);
   const nextIdRef = useRef(0);
-  const schedulerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null,
-  );
-  const commentTimeoutsRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(
-    new Map(),
-  );
+  const schedulerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const commentTimeoutsRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
 
   const clearSchedulerTimeout = useCallback(() => {
     if (schedulerTimeoutRef.current !== null) {
@@ -60,9 +56,7 @@ export default function Niconico({}: Route.ComponentProps) {
   }, []);
 
   const generateRandomComment = useCallback((): Comment => {
-    const randomComment = COMMENTS[
-      Math.floor(Math.random() * COMMENTS.length)
-    ] as string;
+    const randomComment = COMMENTS[Math.floor(Math.random() * COMMENTS.length)] as string;
     const randomTop = Math.floor(Math.random() * 81) + 10; // 10-90%
     const commentId = nextIdRef.current++;
 
@@ -76,9 +70,7 @@ export default function Niconico({}: Route.ComponentProps) {
   const handleRemoveComment = useCallback(
     (commentId: string) => {
       clearCommentTimeout(commentId);
-      setActiveComments((prev) =>
-        prev.filter((comment) => comment.id !== commentId),
-      );
+      setActiveComments((prev) => prev.filter((comment) => comment.id !== commentId));
     },
     [clearCommentTimeout],
   );
@@ -113,8 +105,7 @@ export default function Niconico({}: Route.ComponentProps) {
     const scheduleNext = () => {
       clearSchedulerTimeout();
 
-      const randomInterval =
-        Math.random() * (MAX_INTERVAL_MS - MIN_INTERVAL_MS) + MIN_INTERVAL_MS;
+      const randomInterval = Math.random() * (MAX_INTERVAL_MS - MIN_INTERVAL_MS) + MIN_INTERVAL_MS;
 
       schedulerTimeoutRef.current = setTimeout(() => {
         addComment();
