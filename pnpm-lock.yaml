@@ -104,9 +104,15 @@ catalogs:
       specifier: 0.1.23
       version: 0.1.23
   prod:
+    '@formisch/react':
+      specifier: ^0.5.0
+      version: 0.5.0
     mediabunny:
       specifier: 1.45.4
       version: 1.45.4
+    valibot:
+      specifier: ^1.4.1
+      version: 1.4.1
 
 overrides:
   vite: npm:@voidzero-dev/vite-plus-core@0.1.23
@@ -115,6 +121,9 @@ importers:
 
   .:
     dependencies:
+      '@formisch/react':
+        specifier: catalog:prod
+        version: 0.5.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@6.0.3)(valibot@1.4.1(typescript@6.0.3))
       '@libsql/client':
         specifier: 0.17.3
         version: 0.17.3
@@ -151,6 +160,9 @@ importers:
       tailwind-variants:
         specifier: 3.2.2
         version: 3.2.2(tailwind-merge@3.6.0)(tailwindcss@4.3.0)
+      valibot:
+        specifier: catalog:prod
+        version: 1.4.1(typescript@6.0.3)
     devDependencies:
       '@cloudflare/vite-plugin':
         specifier: 1.39.0
@@ -1045,6 +1057,17 @@ packages:
 
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
+
+  '@formisch/react@0.5.0':
+    resolution: {integrity: sha512-lueetILu2+sePmNMRkT5F6VVDiGKWqwF9NB5ksw5vD0PQ3roCuIgrGqiqoVJEstmLIct/NWSCWo4pU3IUtJWWQ==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      typescript: '>=5'
+      valibot: ^1.4.1
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   '@iconify/json@2.2.480':
     resolution: {integrity: sha512-wr5SImR0Gni4CLKOQ0t2NP5NgP2NIN5af07GCBVn69z2HLAsHyPZRBahLVpDpstRxSNd/sKm/NYg25dk69VYEw==}
@@ -4005,6 +4028,14 @@ snapshots:
       '@floating-ui/utils': 0.2.11
 
   '@floating-ui/utils@0.2.11': {}
+
+  '@formisch/react@0.5.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@6.0.3)(valibot@1.4.1(typescript@6.0.3))':
+    dependencies:
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
+      valibot: 1.4.1(typescript@6.0.3)
+    optionalDependencies:
+      typescript: 6.0.3
 
   '@iconify/json@2.2.480':
     dependencies:

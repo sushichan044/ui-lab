@@ -14,7 +14,9 @@ catalogs:
     typescript: 6.0.3
     vite-plus: 0.1.23
   prod:
+    "@formisch/react": ^0.5.0
     mediabunny: 1.45.4
+    valibot: ^1.4.1
 
 overrides:
   vite: npm:@voidzero-dev/vite-plus-core@0.1.23
