@@ -1,10 +1,12 @@
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
+import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
+import { DevTools } from "@vitejs/devtools";
+import { reactCompilerPreset } from "@vitejs/plugin-react";
 import Icons from "unplugin-icons/vite";
 import devtoolsJson from "vite-plugin-devtools-json";
 import { defineConfig, lazyPlugins } from "vite-plus";
-
 export default defineConfig({
   fmt: {
     ignorePatterns: ["pnpm-lock.yaml", "CHANGELOG.md"],
@@ -35,10 +37,19 @@ export default defineConfig({
       cloudflare({ viteEnvironment: { name: "ssr" } }),
       tailwindcss(),
       reactRouter(),
+      babel({
+        presets: [reactCompilerPreset()],
+      }),
       Icons({ compiler: "jsx", jsx: "react" }),
       devtoolsJson(),
+      DevTools(),
     ]) ?? []),
   ],
+  build: {
+    rolldownOptions: {
+      devtools: {},
+    },
+  },
   test: {
     benchmark: {
       include: ["**/*.{bench,benchmark}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
@@ -52,6 +63,10 @@ export default defineConfig({
     tasks: {
       build: {
         command: "vp build",
+      },
+      dev: {
+        command: "vp dev",
+        dependsOn: ["typegen"],
       },
       check: {
         command: "vp check",
