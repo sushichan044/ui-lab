@@ -103,6 +103,10 @@ catalogs:
     vite-plus:
       specifier: 0.1.23
       version: 0.1.23
+  prod:
+    mediabunny:
+      specifier: 1.45.4
+      version: 1.45.4
 
 overrides:
   vite: npm:@voidzero-dev/vite-plus-core@0.1.23
@@ -126,6 +130,9 @@ importers:
       isbot:
         specifier: 5.1.40
         version: 5.1.40
+      mediabunny:
+        specifier: catalog:prod
+        version: 1.45.4
       react:
         specifier: 19.2.6
         version: 19.2.6
@@ -2059,6 +2066,12 @@ packages:
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
 
+  '@types/dom-mediacapture-transform@0.1.11':
+    resolution: {integrity: sha512-Y2p+nGf1bF2XMttBnsVPHUWzRRZzqUoJAKmiP10b5umnO6DDrWI0BrGDJy1pOHoOULVmGSfFNkQrAlC5dcj6nQ==}
+
+  '@types/dom-webcodecs@0.1.13':
+    resolution: {integrity: sha512-O5hkiFIcjjszPIYyUSyvScyvrBoV3NOEEZx/pMlsu44TKzWNkLVBBxnxJz42in5n3QIolYOcBYFCPZZ0h8SkwQ==}
+
   '@types/node@25.9.1':
     resolution: {integrity: sha512-xfrlY7UD5rMJk3ZVJP8BNzS28J36YJg+xp+LPXV1TdWxr8uMH5A860QNxYDGQe/ylDSgjxE52Q9VnO7p75tJxg==}
 
@@ -2847,6 +2860,9 @@ packages:
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
+
+  mediabunny@1.45.4:
+    resolution: {integrity: sha512-NtJl4va2wUhkNDAsS9ZVkK8cP54DK3jvqgQOf4h3DV5j8GS0rOXHCQTbjZehOkhrfUPLA5qls/zEtMAuGiVCyw==}
 
   miniflare@4.20260526.0:
     resolution: {integrity: sha512-JYQ7jPZZWoaaj9jWHb8Ucp6Cu2SbDVqIsAJhumqdzzLkkfq0pYkDeino/sZfW1ixJWPjv/C44zjm9gVJC2izCA==}
@@ -4699,6 +4715,12 @@ snapshots:
 
   '@types/deep-eql@4.0.2': {}
 
+  '@types/dom-mediacapture-transform@0.1.11':
+    dependencies:
+      '@types/dom-webcodecs': 0.1.13
+
+  '@types/dom-webcodecs@0.1.13': {}
+
   '@types/node@25.9.1':
     dependencies:
       undici-types: 7.24.6
@@ -5450,6 +5472,11 @@ snapshots:
   magic-string@0.30.21:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  mediabunny@1.45.4:
+    dependencies:
+      '@types/dom-mediacapture-transform': 0.1.11
+      '@types/dom-webcodecs': 0.1.13
 
   miniflare@4.20260526.0:
     dependencies:

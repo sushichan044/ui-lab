@@ -13,6 +13,8 @@ catalogs:
     "@vitejs/plugin-react": 6.0.2
     typescript: 6.0.3
     vite-plus: 0.1.23
+  prod:
+    mediabunny: 1.45.4
 
 overrides:
   vite: npm:@voidzero-dev/vite-plus-core@0.1.23
