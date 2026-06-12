@@ -49,6 +49,17 @@ export default function Home() {
             <p>Client Loader Example</p>
           </Link>
         </section>
+        <section>
+          <h2 className="text-xl font-bold">Data Fetching (Suspense)</h2>
+          <Link className="link" to="/data-fetch/islands">
+            <p>
+              Islands Playground — multiple islands, island-level ErrorBoundary, first-view priority
+            </p>
+          </Link>
+          <Link className="link" to="/data-fetch/patterns">
+            <p>Patterns — coarse vs fine boundary, waterfall vs parallel, startTransition</p>
+          </Link>
+        </section>
       </div>
     </main>
   );

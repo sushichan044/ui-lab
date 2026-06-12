@@ -11,6 +11,11 @@ const routes = [
     ...prefix("input", [route("multi-checkbox", "./routes/pages/input/multi-checkbox.tsx")]),
 
     ...prefix("interaction", [route("async-task", "./routes/pages/interaction/async-task.tsx")]),
+
+    ...prefix("data-fetch", [
+      route("islands", "./routes/pages/data-fetch/islands.tsx"),
+      route("patterns", "./routes/pages/data-fetch/patterns.tsx"),
+    ]),
   ]),
 ] satisfies RouteConfig;
 
