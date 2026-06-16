@@ -8,7 +8,4 @@ vite-plus = "https://github.com/markmals/mise-vite-plus"
 run = "vp dev"
 
 [tasks."dev:instance"]
-run = [
-    "eval $(vp exec vite-plugin-dev-server-gateway env auto)",
-    "vp dev"
-]
+run = ["eval $(vp exec vite-plugin-dev-server-gateway env auto) && vp dev"]
