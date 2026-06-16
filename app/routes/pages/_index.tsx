@@ -61,15 +61,12 @@ export default function Home() {
           </Link>
         </section>
         <section>
-          <h2 className="text-xl font-bold">On-Demand Fetch (Suspense, before/after)</h2>
-          <Link className="link" to="/data-fetch/on-demand-modal">
-            <p>Modals — whole-content gated vs partial Suspense, in-modal error containment</p>
-          </Link>
-          <Link className="link" to="/data-fetch/on-demand-triggers">
-            <p>Triggers — tab switch, accordion expand, hover/focus preview</p>
-          </Link>
-          <Link className="link" to="/data-fetch/on-demand-fetcher">
-            <p>useFetcher — resource route, awaited vs deferred Promise + use()</p>
+          <h2 className="text-xl font-bold">Data Fetch Strategy Dashboard</h2>
+          <Link className="link" to="/data-fetch/dashboard">
+            <p>
+              One dashboard, three strategies (useEffect / SWR / clientLoader+clientAction) switched
+              on the page — page-load and on-demand fetching side by side
+            </p>
           </Link>
         </section>
       </div>

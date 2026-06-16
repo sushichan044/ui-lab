@@ -15,17 +15,16 @@ const routes = [
     ...prefix("data-fetch", [
       route("islands", "./routes/pages/data-fetch/islands.tsx"),
       route("patterns", "./routes/pages/data-fetch/patterns.tsx"),
-      route("on-demand-modal", "./routes/pages/data-fetch/on-demand-modal.tsx"),
-      route("on-demand-triggers", "./routes/pages/data-fetch/on-demand-triggers.tsx"),
-      route("on-demand-fetcher", "./routes/pages/data-fetch/on-demand-fetcher.tsx"),
+
+      // One dashboard, three fetch strategies switched via ?strategy=.
+      route("dashboard", "./routes/pages/data-fetch/dashboard/route.tsx"),
+      // Client routes (clientLoader/clientAction only) reached via fetcher.load()/submit()
+      // from the client-loader strategy's on-demand widgets.
+      route("dashboard/data/tab/:kind", "./routes/pages/data-fetch/dashboard/data/tab.tsx"),
+      route("dashboard/data/item/:id", "./routes/pages/data-fetch/dashboard/data/item.tsx"),
+      route("dashboard/data/mutate", "./routes/pages/data-fetch/dashboard/data/mutate.tsx"),
     ]),
   ]),
-
-  // Resource routes (no UI / no default export) — live outside the UI layout.
-  // Loaded on demand via fetcher.load() from /data-fetch/on-demand-fetcher.
-  route("data-fetch/resource/item-awaited", "./routes/resources/itemAwaited.tsx"),
-  route("data-fetch/resource/item-deferred", "./routes/resources/itemDeferred.tsx"),
-  route("data-fetch/resource/list-deferred", "./routes/resources/listDeferred.tsx"),
 ] satisfies RouteConfig;
 
 export default routes;
