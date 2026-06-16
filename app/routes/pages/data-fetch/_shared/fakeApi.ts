@@ -37,6 +37,14 @@ export interface ActivityItem {
   timestamp: string;
 }
 
+export interface ItemDetail {
+  id: string;
+  name: string;
+  description: string;
+  owner: string;
+  updatedAt: string;
+}
+
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -82,4 +90,19 @@ export async function fetchActivity(opts: FetchOptions): Promise<ActivityItem[]>
     { id: "a2", action: "Read Suspense docs", timestamp: "5 min ago" },
     { id: "a3", action: "Explored ErrorBoundary", timestamp: "10 min ago" },
   ];
+}
+
+// Detail fetch keyed by an id — the on-demand counterpart of the list fetchers above.
+// The trigger (opening a modal, selecting a row) decides which id to load, so the
+// caller creates the Promise at interaction time rather than in a loader.
+export async function fetchItemDetail(id: string, opts: FetchOptions): Promise<ItemDetail> {
+  await delay(opts.delayMs);
+  if (opts.shouldFail) throw new ApiError(500, `Failed to load item ${id}`);
+  return {
+    id,
+    name: `Item ${id}`,
+    description: `On-demand detail for item ${id}, fetched when the user asked for it.`,
+    owner: "Sushichan044",
+    updatedAt: "just now",
+  };
 }

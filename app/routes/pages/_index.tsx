@@ -60,6 +60,18 @@ export default function Home() {
             <p>Patterns — coarse vs fine boundary, waterfall vs parallel, startTransition</p>
           </Link>
         </section>
+        <section>
+          <h2 className="text-xl font-bold">On-Demand Fetch (Suspense, before/after)</h2>
+          <Link className="link" to="/data-fetch/on-demand-modal">
+            <p>Modals — whole-content gated vs partial Suspense, in-modal error containment</p>
+          </Link>
+          <Link className="link" to="/data-fetch/on-demand-triggers">
+            <p>Triggers — tab switch, accordion expand, hover/focus preview</p>
+          </Link>
+          <Link className="link" to="/data-fetch/on-demand-fetcher">
+            <p>useFetcher — resource route, awaited vs deferred Promise + use()</p>
+          </Link>
+        </section>
       </div>
     </main>
   );
