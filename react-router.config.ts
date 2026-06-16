@@ -1,6 +1,8 @@
 import type { Config } from "@react-router/dev/config";
+import { ensureTrailingSlash } from "vite-plugin-dev-server-gateway";
 
 export default {
+  basename: ensureTrailingSlash(process.env["PREVIEW_GATEWAY_BASE"]),
   future: {
     v8_viteEnvironmentApi: true,
     v8_middleware: true,
