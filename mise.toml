@@ -3,3 +3,12 @@ vite-plus = { version = "latest", postinstall = "vp env off" } # do not manage n
 
 [plugins]
 vite-plus = "https://github.com/markmals/mise-vite-plus"
+
+[tasks.dev]
+run = "vp dev"
+
+[tasks."dev:instance"]
+run = [
+    "eval $(vp exec vite-plugin-dev-server-gateway env auto)",
+    "vp dev"
+]
