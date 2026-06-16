@@ -5,8 +5,10 @@ import tailwindcss from "@tailwindcss/vite";
 import { DevTools } from "@vitejs/devtools";
 import { reactCompilerPreset } from "@vitejs/plugin-react";
 import Icons from "unplugin-icons/vite";
+import { devServerGateway, instanceFromEnv } from "vite-plugin-dev-server-gateway";
 import devtoolsJson from "vite-plugin-devtools-json";
 import { defineConfig, lazyPlugins } from "vite-plus";
+
 export default defineConfig({
   fmt: {
     ignorePatterns: ["pnpm-lock.yaml", "CHANGELOG.md"],
@@ -43,6 +45,9 @@ export default defineConfig({
       Icons({ compiler: "jsx", jsx: "react" }),
       devtoolsJson(),
       DevTools(),
+      devServerGateway({
+        instance: instanceFromEnv(),
+      }),
     ]) ?? []),
   ],
   build: {

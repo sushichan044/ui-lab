@@ -12,6 +12,7 @@ catalogs:
     "@vitejs/devtools": 0.3.1
     "@vitejs/plugin-react": 6.0.2
     typescript: 6.0.3
+    vite-plugin-dev-server-gateway: ^0.0.2
     vite-plus: 0.1.23
   prod:
     "@formisch/react": ^0.5.0
@@ -25,3 +26,6 @@ configDependencies:
   "@pnpm/pacquet": 0.2.2-15
 
 saveExact: true
+
+minimumReleaseAgeExclude:
+  - vite-plugin-dev-server-gateway@0.0.2

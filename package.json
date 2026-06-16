@@ -45,6 +45,7 @@
     "typescript": "catalog:dev",
     "unplugin-icons": "23.0.1",
     "vite": "npm:@voidzero-dev/vite-plus-core@0.1.23",
+    "vite-plugin-dev-server-gateway": "catalog:dev",
     "vite-plugin-devtools-json": "1.0.0",
     "vite-plus": "catalog:dev",
     "wrangler": "4.95.0"

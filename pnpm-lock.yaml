@@ -100,6 +100,9 @@ catalogs:
     typescript:
       specifier: 6.0.3
       version: 6.0.3
+    vite-plugin-dev-server-gateway:
+      specifier: ^0.0.2
+      version: 0.0.2
     vite-plus:
       specifier: 0.1.23
       version: 0.1.23
@@ -230,6 +233,9 @@ importers:
       vite:
         specifier: npm:@voidzero-dev/vite-plus-core@0.1.23
         version: '@voidzero-dev/vite-plus-core@0.1.23(@types/node@25.9.1)(@vitejs/devtools@0.3.1)(esbuild@0.28.0)(jiti@2.7.0)(publint@0.3.21)(tsx@4.22.3)(typescript@6.0.3)'
+      vite-plugin-dev-server-gateway:
+        specifier: catalog:dev
+        version: 0.0.2(@voidzero-dev/vite-plus-core@0.1.23)
       vite-plugin-devtools-json:
         specifier: 1.0.0
         version: 1.0.0(@voidzero-dev/vite-plus-core@0.1.23)
@@ -2724,6 +2730,10 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  gunshi@0.34.0:
+    resolution: {integrity: sha512-X2iHMotAKK143WNWyatb1y+sBoIqIeXNNc9ul5oMVqyxTpN/8LVJ+YWQZ8wT35r8RzMFO3nUi+Fnt7c4QzE34g==}
+    engines: {node: '>= 22'}
+
   h3@1.15.11:
     resolution: {integrity: sha512-L3THSe2MPeBwgIZVSH5zLdBBU90TOxarvhK9d04IDY2AmVS8j2Jz2LIWtwsGOU3lu2I5jCN7FNvVfY2+XyF+mg==}
 
@@ -3386,6 +3396,13 @@ packages:
     resolution: {integrity: sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
+
+  vite-plugin-dev-server-gateway@0.0.2:
+    resolution: {integrity: sha512-RQpRC+U4UitXIiB077rry944HCrVe9NDoYoGQRxC3fJI1TO7XlxmuTfTIBYpN1mTj2jcJFmvjewjdKhIRm8NFQ==}
+    engines: {node: '>=22.12.0'}
+    hasBin: true
+    peerDependencies:
+      vite: ^7.0.0 || ^8.0.0
 
   vite-plugin-devtools-json@1.0.0:
     resolution: {integrity: sha512-MobvwqX76Vqt/O4AbnNMNWoXWGrKUqZbphCUle/J2KXH82yKQiunOeKnz/nqEPosPsoWWPP9FtNuPBSYpiiwkw==}
@@ -5385,6 +5402,8 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
+  gunshi@0.34.0: {}
+
   h3@1.15.11:
     dependencies:
       cookie-es: 1.2.3
@@ -6027,6 +6046,11 @@ snapshots:
       - unplugin-unused
       - unrun
       - yaml
+
+  vite-plugin-dev-server-gateway@0.0.2(@voidzero-dev/vite-plus-core@0.1.23):
+    dependencies:
+      gunshi: 0.34.0
+      vite: '@voidzero-dev/vite-plus-core@0.1.23(@types/node@25.9.1)(@vitejs/devtools@0.3.1)(esbuild@0.28.0)(jiti@2.7.0)(publint@0.3.21)(tsx@4.22.3)(typescript@6.0.3)'
 
   vite-plugin-devtools-json@1.0.0(@voidzero-dev/vite-plus-core@0.1.23):
     dependencies:
