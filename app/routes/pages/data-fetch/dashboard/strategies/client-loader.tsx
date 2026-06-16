@@ -56,22 +56,34 @@ export const ClientLoaderDashboard: FC<{ fail: boolean; overview: Promise<Overvi
   };
 
   const noteFetcher = useFetcher();
+  // Posts to the mutate clientAction. React Router then auto-revalidates the dashboard
+  // clientLoader (overview total) AND the active item fetcher (the modal's own detail),
+  // so the new note appears in-modal without an explicit reload.
   const addNote = (text: string) => {
     void noteFetcher.submit(
-      { note: text },
+      { note: text, id: ITEM_ID },
       { action: "/data-fetch/dashboard/data/mutate", method: "post" },
     );
   };
 
   return (
     <>
-      <WidgetCard hint="page-load · clientLoader (runs at navigation)" title="Overview">
+      <WidgetCard
+        badge="clientLoader"
+        className="lg:col-span-2"
+        hint="page-load · clientLoader (runs at navigation)"
+        title="Overview"
+      >
         <Suspense fallback={<OverviewSkeleton />}>
           {overview ? <OverviewStream promise={overview} /> : <OverviewSkeleton />}
         </Suspense>
       </WidgetCard>
 
-      <WidgetCard hint="on-demand load · fetcher.load() + startTransition" title="Activity">
+      <WidgetCard
+        badge="fetcher.load"
+        hint="on-demand load · fetcher.load() + startTransition"
+        title="Activity"
+      >
         <TabBar active={tab} onSelect={selectTab} pending={pending} />
         {tab === null ? (
           <p className="text-xs opacity-50">Select a tab to load it.</p>
@@ -84,37 +96,41 @@ export const ClientLoaderDashboard: FC<{ fail: boolean; overview: Promise<Overvi
         )}
       </WidgetCard>
 
-      <WidgetCard hint="on-demand load · fetcher.load() on open" title="Item detail">
+      <WidgetCard
+        badge="fetcher + clientAction"
+        hint="on-demand load on open · in-modal note mutation auto-revalidates"
+        title="Item detail"
+      >
         <button className="btn btn-sm w-fit" onClick={openModal} type="button">
           Open detail
         </button>
         <Modal onClose={() => setOpen(false)} open={open} title={`Item ${ITEM_ID}`}>
-          {/* ErrorBoundary + Suspense stay INSIDE the modal so a failed/pending fetch
-              never bubbles to the root boundary and blanks the page. */}
-          <ErrorBoundary
-            fallback={({ error }) => (
-              <ErrorView
-                message={error.message}
-                onRetry={() => {
-                  void itemFetcher.load(itemHref);
-                }}
-              />
-            )}
-            resetKeys={[itemFetcher.data]}
-          >
-            <Suspense fallback={<DetailSkeleton />}>
-              {itemFetcher.data ? (
-                <ModalDetail promise={itemFetcher.data.detail} />
-              ) : (
-                <DetailSkeleton />
+          <div className="space-y-4">
+            {/* ErrorBoundary + Suspense stay INSIDE the modal so a failed/pending fetch
+                never bubbles to the root boundary and blanks the page. The note form
+                lives OUTSIDE the boundary so the mutation works even if the read failed. */}
+            <ErrorBoundary
+              fallback={({ error }) => (
+                <ErrorView
+                  message={error.message}
+                  onRetry={() => {
+                    void itemFetcher.load(itemHref);
+                  }}
+                />
               )}
-            </Suspense>
-          </ErrorBoundary>
+              resetKeys={[itemFetcher.data]}
+            >
+              <Suspense fallback={<DetailSkeleton />}>
+                {itemFetcher.data ? (
+                  <ModalDetail promise={itemFetcher.data.detail} />
+                ) : (
+                  <DetailSkeleton />
+                )}
+              </Suspense>
+            </ErrorBoundary>
+            <NoteForm onSubmit={addNote} pending={noteFetcher.state !== "idle"} />
+          </div>
         </Modal>
-      </WidgetCard>
-
-      <WidgetCard hint="on-demand action · clientAction + auto revalidation" title="Add note">
-        <NoteForm onSubmit={addNote} pending={noteFetcher.state !== "idle"} />
       </WidgetCard>
     </>
   );

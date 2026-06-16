@@ -97,13 +97,34 @@ export const RowListSkeleton: FC = () => (
 // --- Detail modal (widget 3) ---
 
 export const DetailView: FC<{ detail: ItemDetail }> = ({ detail }) => (
-  <div className="space-y-2">
-    <p className="font-semibold">{detail.name}</p>
-    <p className="text-sm opacity-70">{detail.description}</p>
-    <div className="flex gap-4 text-xs opacity-50">
-      <span>owner: {detail.owner}</span>
-      <span>updated: {detail.updatedAt}</span>
+  <div className="space-y-3">
+    <div className="space-y-1">
+      <p className="font-semibold">{detail.name}</p>
+      <p className="text-sm opacity-70">{detail.description}</p>
+      <div className="flex gap-4 text-xs opacity-50">
+        <span>owner: {detail.owner}</span>
+        <span>updated: {detail.updatedAt}</span>
+      </div>
     </div>
+    <NotesList notes={detail.notes} />
+  </div>
+);
+
+const NotesList: FC<{ notes: string[] }> = ({ notes }) => (
+  <div className="space-y-1">
+    <p className="text-xs font-semibold opacity-60">Notes ({notes.length})</p>
+    {notes.length === 0 ? (
+      <p className="text-xs opacity-50">No notes yet. Add one below.</p>
+    ) : (
+      <ul className="space-y-1">
+        {notes.map((note, i) => (
+          // Append-only list; index is a stable key here.
+          <li className="bg-base-200 rounded px-2 py-1 text-xs" key={i}>
+            {note}
+          </li>
+        ))}
+      </ul>
+    )}
   </div>
 );
 
@@ -158,14 +179,19 @@ export const NoteForm: FC<{
 
 // --- Section frame shared by all widgets ---
 
-export const WidgetCard: FC<{ title: string; hint: string; children: ReactNode }> = ({
-  title,
-  hint,
-  children,
-}) => (
-  <section className="card bg-base-100 border border-base-300 p-4 space-y-3">
-    <div>
-      <h2 className="text-lg font-bold">{title}</h2>
+export const WidgetCard: FC<{
+  title: string;
+  hint: string;
+  badge?: string;
+  className?: string;
+  children: ReactNode;
+}> = ({ title, hint, badge, className, children }) => (
+  <section className={`card bg-base-100 border-base-300 space-y-3 border p-4 ${className ?? ""}`}>
+    <div className="space-y-1">
+      <div className="flex items-center gap-2">
+        <h2 className="text-lg font-bold">{title}</h2>
+        {badge && <span className="badge badge-sm badge-ghost font-mono">{badge}</span>}
+      </div>
       <p className="text-xs opacity-60">{hint}</p>
     </div>
     {children}

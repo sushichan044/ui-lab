@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { Modal } from "../../_shared/Modal";
 import { useManualFetch } from "../../_shared/useManualFetch";
 import type { TabKind } from "../_shared/api";
-import { ITEM_ID, loadItem, loadOverview, loadTab, submitNote } from "../_shared/api";
+import { addNote, ITEM_ID, loadItem, loadOverview, loadTab } from "../_shared/api";
 import {
   DetailSkeleton,
   DetailView,
@@ -20,13 +20,34 @@ import {
 
 // Mounted only while the modal is open, so the fetch is on-demand. useManualFetch
 // runs the fetch on mount and tracks loading/error in component state.
-const ModalBody: FC<{ fail: boolean; onClose: () => void }> = ({ fail, onClose }) => {
-  const fetcher = useCallback((id: string) => loadItem(id, fail), [fail]);
-  const { data, loading, error } = useManualFetch(ITEM_ID, fetcher);
-  if (loading) return <DetailSkeleton />;
-  if (error) return <ErrorView message={error.message} onRetry={onClose} />;
-  if (!data) return null;
-  return <DetailView detail={data} />;
+const ModalBody: FC<{ fail: boolean; onMutated: () => void }> = ({ fail, onMutated }) => {
+  // Bumping the version changes the key, which re-runs the item fetch — this is how
+  // the imperative strategy revalidates the modal's own detail after a mutation.
+  const [version, setVersion] = useState(0);
+  const fetcher = useCallback(() => loadItem(ITEM_ID, fail), [fail]);
+  const { data, loading, error } = useManualFetch(`${ITEM_ID}:${version}`, fetcher);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleAddNote = async (text: string) => {
+    setSubmitting(true);
+    await addNote(ITEM_ID, text);
+    setSubmitting(false);
+    setVersion((v) => v + 1); // refetch this item's detail (in-modal notes list)
+    onMutated(); // refetch the overview total
+  };
+
+  return (
+    <div className="space-y-4">
+      {loading ? (
+        <DetailSkeleton />
+      ) : error ? (
+        <ErrorView message={error.message} onRetry={() => setVersion((v) => v + 1)} />
+      ) : data ? (
+        <DetailView detail={data} />
+      ) : null}
+      <NoteForm onSubmit={handleAddNote} pending={submitting} />
+    </div>
+  );
 };
 
 export const UseEffectDashboard: FC<{ fail: boolean }> = ({ fail }) => {
@@ -41,18 +62,15 @@ export const UseEffectDashboard: FC<{ fail: boolean }> = ({ fail }) => {
   const tabState = useManualFetch(tab, loadTabRows);
 
   const [open, setOpen] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-
-  const addNote = async (text: string) => {
-    setSubmitting(true);
-    await submitNote(text);
-    setSubmitting(false);
-    setOverviewVersion((v) => v + 1);
-  };
 
   return (
     <>
-      <WidgetCard hint="page-load · useEffect fetch on mount" title="Overview">
+      <WidgetCard
+        badge="useEffect"
+        className="lg:col-span-2"
+        hint="page-load · useEffect fetch on mount"
+        title="Overview"
+      >
         {overview.loading || !overview.data ? (
           <OverviewSkeleton />
         ) : (
@@ -60,7 +78,11 @@ export const UseEffectDashboard: FC<{ fail: boolean }> = ({ fail }) => {
         )}
       </WidgetCard>
 
-      <WidgetCard hint="on-demand load · fetch in the click handler" title="Activity">
+      <WidgetCard
+        badge="useEffect (keyed)"
+        hint="on-demand load · fetch in the click handler"
+        title="Activity"
+      >
         <TabBar active={tab} onSelect={setTab} />
         {tab === null ? (
           <p className="text-xs opacity-50">Select a tab to load it.</p>
@@ -71,17 +93,17 @@ export const UseEffectDashboard: FC<{ fail: boolean }> = ({ fail }) => {
         )}
       </WidgetCard>
 
-      <WidgetCard hint="on-demand load · fetch when the modal opens" title="Item detail">
+      <WidgetCard
+        badge="useEffect + refetch"
+        hint="on-demand load on open · in-modal note mutation refetches detail + overview"
+        title="Item detail"
+      >
         <button className="btn btn-sm w-fit" onClick={() => setOpen(true)} type="button">
           Open detail
         </button>
         <Modal onClose={() => setOpen(false)} open={open} title={`Item ${ITEM_ID}`}>
-          <ModalBody fail={fail} onClose={() => setOpen(false)} />
+          <ModalBody fail={fail} onMutated={() => setOverviewVersion((v) => v + 1)} />
         </Modal>
-      </WidgetCard>
-
-      <WidgetCard hint="on-demand action · call, then refetch the overview" title="Add note">
-        <NoteForm onSubmit={addNote} pending={submitting} />
       </WidgetCard>
     </>
   );

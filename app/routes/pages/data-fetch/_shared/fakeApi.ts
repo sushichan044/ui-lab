@@ -43,6 +43,7 @@ export interface ItemDetail {
   description: string;
   owner: string;
   updatedAt: string;
+  notes: string[];
 }
 
 function delay(ms: number): Promise<void> {
@@ -92,6 +93,11 @@ export async function fetchActivity(opts: FetchOptions): Promise<ActivityItem[]>
   ];
 }
 
+// Per-item notes added on demand from the detail modal's mutation. Module-level so a
+// note added in the modal is reflected by the next fetchItemDetail (revalidation) and
+// counted across items by totalNoteCount (the Overview "Notes" stat).
+const itemNotes: Record<string, string[]> = {};
+
 // Detail fetch keyed by an id — the on-demand counterpart of the list fetchers above.
 // The trigger (opening a modal, selecting a row) decides which id to load, so the
 // caller creates the Promise at interaction time rather than in a loader.
@@ -104,5 +110,18 @@ export async function fetchItemDetail(id: string, opts: FetchOptions): Promise<I
     description: `On-demand detail for item ${id}, fetched when the user asked for it.`,
     owner: "Sushichan044",
     updatedAt: "just now",
+    notes: [...(itemNotes[id] ?? [])],
   };
+}
+
+// The detail modal's mutation. Always succeeds (the "Force fail" switch only fails the
+// detail read), so each strategy can show its own revalidation of the modal's own data.
+export async function addItemNote(id: string, text: string, delayMs: number): Promise<void> {
+  await delay(delayMs);
+  if (text.trim().length === 0) return;
+  (itemNotes[id] ??= []).push(text.trim());
+}
+
+export function totalNoteCount(): number {
+  return Object.values(itemNotes).reduce((total, notes) => total + notes.length, 0);
 }
