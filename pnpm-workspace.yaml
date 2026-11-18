@@ -13,14 +13,14 @@ catalogs:
     "@vitejs/plugin-react": 6.0.2
     typescript: 6.0.3
     vite-plugin-dev-server-gateway: ^0.0.2
-    vite-plus: 0.1.23
+    vite-plus: 1.7.0
   prod:
     "@formisch/react": ^0.5.0
     mediabunny: 1.45.4
     valibot: ^1.4.1
 
 overrides:
-  vite: npm:@voidzero-dev/vite-plus-core@0.1.23
+  vite: npm:@voidzero-dev/vite-plus-core@8.3.8000
 
 configDependencies:
   "@pnpm/pacquet": 0.2.2-15
