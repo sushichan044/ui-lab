@@ -83,11 +83,11 @@ export default defineConfig({
       },
       "typegen:react-router": {
         command: "react-router typegen",
-        output: [".react-router/**"],
+        cache: { output: [".react-router/**"] },
       },
       "typegen:cloudflare": {
         command: "wrangler types --env-interface CloudflareBindings",
-        output: ["./worker-configuration.d.ts"],
+        cache: { output: ["./worker-configuration.d.ts"] },
       },
     },
   },
